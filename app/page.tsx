@@ -13,7 +13,7 @@ import Footer from "./components/footer";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-linear-gradient-to-r from-gray-50 to-white">
       {/* Navigation */}
       <Navbar />
 
@@ -148,15 +148,15 @@ export default function LandingPage() {
               </div>
 
               {/* Floating Elements */}
-              <div className="absolute -top-4 -right-4 w-24 h-24 rounded-2xl bg-gradient-to-br from-success-400 to-success-600 shadow-xl flex items-center justify-center">
-                <div className="text-center text-white">
+              <div className="absolute -top-4 -right-4 w-24 h-24 rounded-2xl shadow-xl flex items-center justify-center">
+                <div className="text-center text-primary-400">
                   <p className="text-2xl font-bold">+50%</p>
                   <p className="text-xs">Bonus</p>
                 </div>
               </div>
 
               <div className="absolute -bottom-4 -left-4 w-20 h-20 rounded-2xl bg-gradient-to-br from-secondary-400 to-secondary-600 shadow-xl flex items-center justify-center">
-                <Zap className="w-8 h-8 text-white" />
+                <Zap className="w-8 h-8 text-primary-500" />
               </div>
             </div>
           </div>
