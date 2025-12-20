@@ -78,5 +78,5 @@
 
 /* Gradient text */
 .gradient-text {
-  @apply bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent;
+  @apply bg-gradient-to-r from-indigo-600 to-indigo-400 bg-clip-text text-transparent;
 }

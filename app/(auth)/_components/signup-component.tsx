@@ -1,15 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/client";
 import { Mail, Lock, User, Eye, EyeOff, Check, Chrome } from "lucide-react";
 import { toast } from "react-hot-toast";
+import { useAuth } from "@/app/provider/auth-provider";
+import { signInWithGoogle } from "@/lib/supabase/browser-client";
 
 export default function SignupPage() {
   const router = useRouter();
-  const supabase = createClient();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect") || "/rewards";
+  const { signUp } = useAuth();
+
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -53,80 +57,24 @@ export default function SignupPage() {
     setLoading(true);
 
     try {
-      // Create user in Supabase Auth
-      const { error: authError, data: authData } = await supabase.auth.signUp({
-        email: formData.email,
-        password: formData.password,
-        options: {
-          data: {
-            full_name: formData.fullName,
-          },
-          emailRedirectTo: `${window.location.origin}/auth/callback`,
-        },
-      });
-
-      if (authError) {
-        throw authError;
-      }
-
-      // Create profile in database
-      if (authData.user) {
-        const { error: profileError } = await supabase.from("profiles").insert({
-          id: authData.user.id,
-          email: formData.email,
-          full_name: formData.fullName,
-          points: 1000, // Welcome bonus
-        });
-
-        if (profileError) {
-          // If profile creation fails, we should handle this gracefully
-          console.error("Profile creation failed:", profileError);
-        }
-
-        // Add welcome points transaction
-        await supabase.from("points_transactions").insert({
-          user_id: authData.user.id,
-          points: 1000,
-          type: "earned",
-          description: "Welcome bonus",
-        });
-      }
-
-      toast.success(
-        "Account created successfully! Check your email for verification."
+      const result = await signUp(
+        formData.email,
+        formData.password,
+        formData.fullName
       );
 
-      // If email confirmation is enabled, show message
-      if (authData.user?.identities?.length === 0) {
-        toast.success("Please check your email to confirm your account.");
-        router.push("/login");
+      if (result.success) {
+        // Success toast is shown in AuthProvider
+        router.push(redirect);
+        router.refresh();
       } else {
-        // Auto-login if email confirmation is disabled
-        router.push("/rewards");
+        toast.error(result.error || "Login failed");
       }
-    } catch (error: any) {
-      toast.error(error.message || "Signup failed");
+    } catch (error) {
+      console.error("Login error:", error);
+      toast.error("An unexpected error occurred");
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleGoogleSignup = async () => {
-    try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
-        options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
-          queryParams: {
-            access_type: "offline",
-            prompt: "consent",
-          },
-        },
-      });
-
-      if (error) throw error;
-    } catch (error: any) {
-      toast.error(error.message || "Google signup failed");
     }
   };
 
@@ -150,7 +98,7 @@ export default function SignupPage() {
         <div className="bg-white rounded-2xl shadow-xl p-8">
           {/* Google OAuth Button */}
           <button
-            onClick={handleGoogleSignup}
+            onClick={signInWithGoogle}
             disabled={loading}
             className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed mb-6"
           >
