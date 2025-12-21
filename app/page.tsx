@@ -13,14 +13,14 @@ import Footer from "./components/footer";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-linear-gradient-to-r from-gray-50 to-white">
+    <div className="min-h-screen bg-linear-to-r from-gray-50 to-white">
       {/* Navigation */}
       <Navbar />
 
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         {/* Background Elements */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-50/50 to-secondary-50/50" />
+        <div className="absolute inset-0 bg-linear-to-br from-primary-50/50 to-secondary-50/50" />
         <div className="absolute top-0 left-0 w-72 h-72 bg-primary-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob" />
         <div className="absolute top-0 right-0 w-72 h-72 bg-secondary-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000" />
         <div className="absolute -bottom-8 left-20 w-72 h-72 bg-success-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000" />
@@ -36,7 +36,7 @@ export default function LandingPage() {
 
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
                 <span className="block text-gray-900">Unlock Amazing</span>
-                <span className="block bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
+                <span className="block bg-linear-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
                   Rewards & Perks
                 </span>
               </h1>
@@ -51,7 +51,7 @@ export default function LandingPage() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
                   href="/signup"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-primary-600 to-primary-700 text-white font-semibold rounded-xl hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 group"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-linear-to-r from-primary-600 to-primary-700 text-white font-semibold rounded-xl hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 group"
                 >
                   Get Started Free
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -72,7 +72,7 @@ export default function LandingPage() {
                   {[1, 2, 3, 4, 5].map((i) => (
                     <div
                       key={i}
-                      className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 border-2 border-white"
+                      className="w-10 h-10 rounded-full bg-linear-to-br from-primary-400 to-primary-600 border-2 border-white"
                     />
                   ))}
                 </div>
@@ -87,7 +87,7 @@ export default function LandingPage() {
 
             {/* Hero Visual */}
             <div className="relative">
-              <div className="relative bg-gradient-to-br from-white to-gray-50 rounded-3xl p-8 shadow-2xl">
+              <div className="relative bg-linear-to-br from-white to-gray-50 rounded-3xl p-8 shadow-2xl">
                 {/* Mock Rewards Dashboard */}
                 <div className="space-y-6">
                   <div className="flex items-center justify-between">
@@ -102,7 +102,7 @@ export default function LandingPage() {
                         </span>
                       </p>
                     </div>
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-xl bg-linear-to-br from-primary-500 to-primary-600 flex items-center justify-center">
                       <Award className="w-6 h-6 text-white" />
                     </div>
                   </div>
@@ -116,7 +116,7 @@ export default function LandingPage() {
                     ].map((category, i) => (
                       <div
                         key={i}
-                        className="bg-gradient-to-br from-gray-50 to-white p-4 rounded-xl border border-gray-100"
+                        className="bg-linear-to-br from-gray-50 to-white p-4 rounded-xl border border-gray-100"
                       >
                         <div className="w-8 h-8 rounded-lg bg-primary-100 flex items-center justify-center mb-2">
                           <Star className="w-4 h-4 text-primary-600" />
@@ -129,7 +129,7 @@ export default function LandingPage() {
                     ))}
                   </div>
 
-                  <div className="bg-gradient-to-r from-primary-50 to-secondary-50 rounded-xl p-4">
+                  <div className="bg-linear-to-r from-primary-50 to-secondary-50 rounded-xl p-4">
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="font-semibold text-gray-900">
@@ -139,7 +139,7 @@ export default function LandingPage() {
                           Double points this week!
                         </p>
                       </div>
-                      <div className="px-3 py-1 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full text-white text-sm font-semibold">
+                      <div className="px-3 py-1 bg-linear-to-r from-primary-500 to-secondary-500 rounded-full text-white text-sm font-semibold">
                         🔥 Hot
                       </div>
                     </div>
@@ -155,7 +155,7 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              <div className="absolute -bottom-4 -left-4 w-20 h-20 rounded-2xl bg-gradient-to-br from-secondary-400 to-secondary-600 shadow-xl flex items-center justify-center">
+              <div className="absolute -bottom-4 -left-4 w-20 h-20 rounded-2xl bg-linear-to-br from-secondary-400 to-secondary-600 shadow-xl flex items-center justify-center">
                 <Zap className="w-8 h-8 text-primary-500" />
               </div>
             </div>
@@ -179,8 +179,8 @@ export default function LandingPage() {
           <div className="grid md:grid-cols-3 gap-8">
             {features.map((feature, index) => (
               <div key={index} className="group">
-                <div className="bg-gradient-to-br from-white to-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-primary-100 hover:shadow-2xl transition-all duration-300">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <div className="bg-linear-to-br from-white to-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-primary-100 hover:shadow-2xl transition-all duration-300">
+                  <div className="w-14 h-14 rounded-xl bg-linear-to-br from-primary-500 to-primary-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                     <feature.icon className="w-7 h-7 text-white" />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-3">
@@ -206,7 +206,7 @@ export default function LandingPage() {
       </section>
 
       {/* Rewards Showcase */}
-      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+      <section className="py-20 bg-linear-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -221,9 +221,9 @@ export default function LandingPage() {
             {rewards.map((reward, index) => (
               <div key={index} className="group">
                 <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100">
-                  <div className="relative h-48 bg-gradient-to-br from-gray-100 to-gray-200">
+                  <div className="relative h-48 bg-linear-to-br from-gray-100 to-gray-200">
                     <div className="absolute top-4 right-4">
-                      <div className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold text-sm">
+                      <div className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-linear-to-r from-amber-500 to-orange-500 text-white font-bold text-sm">
                         <Award className="w-3 h-3" />
                         <span>{reward.points}</span>
                       </div>
@@ -265,7 +265,7 @@ export default function LandingPage() {
           <div className="text-center mt-12">
             <Link
               href="/rewards"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary-600 to-primary-700 text-white font-semibold rounded-xl hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-linear-to-r from-primary-600 to-primary-700 text-white font-semibold rounded-xl hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300"
             >
               View All Rewards
               <ArrowRight className="w-5 h-5" />
@@ -275,7 +275,7 @@ export default function LandingPage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-gradient-to-r from-primary-600 to-primary-800 text-white">
+      <section className="py-20 bg-linear-to-r from-primary-600 to-primary-800 text-white">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8 text-center">
             {stats.map((stat, index) => (
@@ -292,7 +292,7 @@ export default function LandingPage() {
       {/* CTA Section */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto bg-gradient-to-br from-primary-50 to-secondary-50 rounded-3xl p-12 text-center">
+          <div className="max-w-4xl mx-auto bg-linear-to-br from-primary-50 to-secondary-50 rounded-3xl p-12 text-center">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
               Ready to Start Earning?
             </h2>
@@ -304,7 +304,7 @@ export default function LandingPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/signup"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-primary-600 to-primary-700 text-white font-semibold rounded-xl hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-linear-gradient-to-r from-primary-600 to-primary-700 text-white font-semibold rounded-xl hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300"
               >
                 Get Started Free
               </Link>

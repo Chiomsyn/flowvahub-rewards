@@ -25,7 +25,7 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-linear-to-br from-primary-500 to-primary-700 flex items-center justify-center">
                 <Award className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-bold text-gray-900">FlowvaHub</span>
@@ -54,7 +54,7 @@ export default function Navbar() {
               <>
                 <Link
                   href="/rewards"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold hover:shadow-lg transition-shadow"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-linear-to-r from-primary-500 to-primary-600 text-white font-semibold hover:shadow-lg transition-shadow"
                 >
                   <Award className="w-4 h-4" />
                   My Rewards
@@ -76,7 +76,7 @@ export default function Navbar() {
                 </Link>
                 <Link
                   href="/signup"
-                  className="px-4 py-2 rounded-lg bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold hover:shadow-lg transition-shadow"
+                  className="px-4 py-2 rounded-lg bg-linear-to-r from-primary-500 to-primary-600 text-white font-semibold hover:shadow-lg transition-shadow"
                 >
                   Get Started
                 </Link>
@@ -122,7 +122,7 @@ export default function Navbar() {
                     <Link
                       href="/rewards"
                       onClick={() => setIsMenuOpen(false)}
-                      className="flex items-center gap-2 px-4 py-3 rounded-lg bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold"
+                      className="flex items-center gap-2 px-4 py-3 rounded-lg bg-linear-to-r from-primary-500 to-primary-600 text-white font-semibold"
                     >
                       <Award className="w-4 h-4" />
                       My Rewards
@@ -149,7 +149,7 @@ export default function Navbar() {
                     <Link
                       href="/signup"
                       onClick={() => setIsMenuOpen(false)}
-                      className="block px-4 py-3 rounded-lg bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold text-center"
+                      className="block px-4 py-3 rounded-lg bg-linear-to-r from-primary-500 to-primary-600 text-white font-semibold text-center"
                     >
                       Get Started
                     </Link>

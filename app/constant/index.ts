@@ -1,4 +1,30 @@
-import { Shield, Zap, Users } from "lucide-react";
+import {
+  Shield,
+  Zap,
+  Users,
+  LayoutDashboard,
+  Settings,
+  Award,
+} from "lucide-react";
+
+export const dashboardLinks = [
+  {
+    label: "Dashboard",
+    href: "/dashboard",
+    icon: LayoutDashboard,
+  },
+  {
+    label: "Rewards Hub",
+    href: "/rewards-hub",
+    icon: Award,
+  },
+
+  {
+    label: "Settings",
+    href: "/settings",
+    icon: Settings,
+  },
+];
 
 export const features = [
   {
