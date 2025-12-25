@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import { Skeleton } from "../components/ui/skeleton";
-import LayoutCompnent from "./_component/layout-component";
-import DashboardLayout from "./_component/layout-component";
+import DashboardLayout from "./_components/layout-component";
 
 function LayoutLoading() {
   return (

@@ -1,7 +1,7 @@
-import React from "react";
+import RewardsHubPage from "./_components/reward-comp";
 
 const page = () => {
-  return <div>page</div>;
+  return <RewardsHubPage />;
 };
 
 export default page;

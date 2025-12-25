@@ -12,7 +12,7 @@ import InputField from "@/app/components/ui/input-field";
 export default function SignUpComponent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect") || "/rewards";
+  const redirect = searchParams.get("redirect") || "/rewards-hub";
   const { signUp, loading } = useAuth();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
