@@ -53,7 +53,7 @@ export default function Navbar() {
             {user ? (
               <>
                 <Link
-                  href="/rewards"
+                  href="/rewards-hub"
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-linear-to-r from-primary-500 to-primary-600 text-white font-semibold hover:shadow-lg transition-shadow"
                 >
                   <Award className="w-4 h-4" />
