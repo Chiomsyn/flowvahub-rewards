@@ -11,7 +11,7 @@ import { formatError } from "@/lib/utils";
 export default function LoginComponent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect") || "/rewards";
+  const redirect = searchParams.get("redirect") || "/rewards-hub";
   const { signIn, loading } = useAuth();
 
   const [showPassword, setShowPassword] = useState(false);
