@@ -1,3 +1,5 @@
+import { Users } from "lucide-react";
+
 interface ReferAndEarnProps {
   referralEmail: string;
   onReferralEmailChange: (email: string) => void;
@@ -24,11 +26,37 @@ export default function ReferAndEarn({
 
   return (
     <section>
-      <h2 className="text-lg font-semibold mb-4">Refer & Earn</h2>
-      <div className="rounded-2xl bg-primary-50 p-6">
-        <p className="font-medium mb-6">Share Your Link</p>
+      <h2 className="text-xl pl-2 border-l-3 border-primary-600 font-semibold mb-4">
+        Refer & Earn
+      </h2>
+      <div className="rounded-xl bg-blue-50 p-4">
+        <div className="flex items-center gap-2">
+          <Users className="text-primary-600" />
+          <div>
+            <p className="font-medium ">Share Your Link</p>
+            <span className="text-gray-500 text-sm">
+              Invite friends and earn 25 points when they join!
+            </span>
+          </div>
+        </div>
+      </div>
+      <div className="my-6">
+        <div className="flex justify-between max-w-[800px] mx-auto gap-10">
+          <div className="flex flex-col items-center">
+            <p className="text-2xl font-bold text-primary-600">
+              {pendingReferrals}
+            </p>
+            <p className="text-sm text-gray-500"> Referrals</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <p className="text-2xl font-bold text-primary-600">
+              {(pendingReferrals * 50).toLocaleString()}
+            </p>
+            <p className="text-sm text-gray-500">Points Earned</p>
+          </div>
+        </div>
 
-        <div className="mb-6 flex gap-2">
+        <div className="mt-6 flex gap-2">
           <input
             type="email"
             value={referralEmail}
@@ -42,21 +70,6 @@ export default function ReferAndEarn({
           >
             Send Invite
           </button>
-        </div>
-
-        <div className="flex justify-between">
-          <div>
-            <p className="text-2xl font-bold text-primary-600">
-              {pendingReferrals}
-            </p>
-            <p className="text-sm text-gray-500">Pending Referrals</p>
-          </div>
-          <div>
-            <p className="text-2xl font-bold text-primary-600">
-              {(pendingReferrals * 50).toLocaleString()}
-            </p>
-            <p className="text-sm text-gray-500">Potential Points</p>
-          </div>
         </div>
 
         {referralCode && (

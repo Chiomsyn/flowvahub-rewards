@@ -20,7 +20,7 @@ export default function DashboardLayout({
         {/* Main Content Area */}
         <div className="flex-1 min-w-0">
           {/* Page Content */}
-          <div className="p-6">{children}</div>
+          <div className="py-6">{children}</div>
         </div>
       </div>
 

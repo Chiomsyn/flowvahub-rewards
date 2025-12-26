@@ -20,10 +20,11 @@ export default function DailyStreak({
   return (
     <Card>
       <CardHeader
+        className="bg-blue-50"
         icon={<Calendar className="h-5 w-5 text-primary-600" />}
         title="Daily Streak"
       />
-      <div className="mt-6">
+      <div className="mt-6 p-6">
         <p className="text-3xl font-bold text-primary-600">
           {currentStreak} day{currentStreak !== 1 ? "s" : ""}
         </p>

@@ -23,7 +23,9 @@ export default function RewardsJourney({
 }: RewardsJourneyProps) {
   return (
     <section className="mb-10">
-      <h2 className="text-lg font-semibold mb-4">Your Rewards Journey</h2>
+      <h2 className="text-xl font-semibold mb-4 border-l-3 pl-2 border-primary-600">
+        Your Rewards Journey
+      </h2>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <PointsBalance userPoints={userPoints} nextReward={nextReward} />

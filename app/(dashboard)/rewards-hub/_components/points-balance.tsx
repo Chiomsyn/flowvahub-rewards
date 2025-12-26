@@ -13,10 +13,11 @@ export default function PointsBalance({
   return (
     <Card>
       <CardHeader
+        className="bg-blue-50"
         icon={<Star className="h-5 w-5 text-primary-600" />}
         title="Points Balance"
       />
-      <div className="mt-6">
+      <div className="mt-6 p-6">
         <div className="flex items-center justify-between">
           <span className="text-4xl font-bold text-primary-600">
             {userPoints.toLocaleString()}

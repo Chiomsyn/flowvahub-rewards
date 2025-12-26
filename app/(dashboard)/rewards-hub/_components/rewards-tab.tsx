@@ -27,10 +27,10 @@ export default function RewardsTabs({ onTabChange }: RewardsTabsProps) {
         <button
           key={tab.id}
           onClick={() => handleTabClick(tab.id)}
-          className={`pb-2 transition-colors ${
+          className={`pb-2 transition-colors cursor-pointer ${
             activeTab === tab.id
-              ? "text-primary-600 font-medium border-l-3 p-2 bg-primary-50 border-primary-600"
-              : "text-gray-500 hover:text-gray-700"
+              ? "text-primary-600 font-medium border-b-2 p-2 bg-primary-50 border-primary-600"
+              : "text-gray-500 hover:bg-primary-50"
           }`}
         >
           {tab.label}

@@ -81,7 +81,7 @@ export default function RewardsHubPage() {
     lastCheckinDate !== new Date().toISOString().split("T")[0];
 
   return (
-    <div className="min-h-screen bg-[#FAFDFD] p-8">
+    <div className="min-h-screen bg-[#FAFDFD] py-8 px-4 lg:px-8">
       <RewardsHeader />
       <RewardsTabs onTabChange={setActiveTab} />
 
