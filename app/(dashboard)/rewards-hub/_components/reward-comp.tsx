@@ -19,12 +19,7 @@ export default function RewardsHubPage() {
   const [referralEmail, setReferralEmail] = useState("");
   const [claiming, setClaiming] = useState(false);
   const [sharing, setSharing] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const [activeTab, setActiveTab] = useState<"earn" | "redeem">("earn");
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   // Fallback to auth profile if rewards data is loading
   const userPoints = data?.points ?? profile?.points ?? 0;
@@ -34,7 +29,7 @@ export default function RewardsHubPage() {
   const pendingReferrals = data?.pending_referrals ?? 0;
   const nextReward = data?.next_reward;
 
-  if (!mounted || loading) {
+  if (loading) {
     return <LoadingState />;
   }
 

@@ -3,11 +3,12 @@ import { useEffect, useState, useCallback } from "react";
 import { Database } from "@/types/supabase";
 import { useAuth } from "@/app/provider/auth-provider";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
+import { formatError } from "../utils";
 
 type Profile = Database["public"]["Tables"]["profiles"]["Row"];
-type Reward = Database["public"]["Tables"]["rewards"]["Row"];
-type PointsTransaction =
-  Database["public"]["Tables"]["points_transactions"]["Row"];
+// type Reward = Database["public"]["Tables"]["rewards"]["Row"];
+// type PointsTransaction =
+//   Database["public"]["Tables"]["points_transactions"]["Row"];
 
 // Define consistent return types
 interface ReferralResult {
@@ -41,6 +42,34 @@ export interface UserRewardsData extends Profile {
   recent_transactions: RecentTransaction[];
 }
 
+// Helper function to create a default UserRewardsData object
+const createDefaultUserRewardsData = (
+  profile?: Profile | null
+): UserRewardsData | null => {
+  if (!profile) return null;
+
+  return {
+    ...profile,
+    next_reward: null,
+    pending_referrals: 0,
+    recent_transactions: [],
+    points: profile.points ?? 0,
+    current_streak: profile.current_streak ?? 0,
+    total_checkins: profile.total_checkins ?? 0,
+    total_referrals: profile.total_referrals ?? 0,
+    longest_streak: profile.longest_streak ?? 0,
+    last_checkin_date: profile.last_checkin_date ?? null,
+    referral_code: profile.referral_code ?? null,
+    email_verified: profile.email_verified ?? false,
+    is_admin: profile.is_admin ?? false,
+    avatar_url: profile.avatar_url ?? null,
+    full_name: profile.full_name ?? null,
+    email: profile.email ?? "",
+    created_at: profile.created_at ?? new Date().toISOString(),
+    updated_at: profile.updated_at ?? new Date().toISOString(),
+  };
+};
+
 export function useRewards() {
   const { user, profile, refreshSession } = useAuth();
   const [data, setData] = useState<UserRewardsData | null>(null);
@@ -70,15 +99,35 @@ export function useRewards() {
 
         console.log("Profile data loaded:", extendedProfile);
 
-        // Initialize base data
-        const resultData: any = { ...extendedProfile };
+        // Create base data with default values
+        const resultData: UserRewardsData = {
+          ...extendedProfile,
+          next_reward: null,
+          pending_referrals: 0,
+          recent_transactions: [],
+          // Ensure all fields have values
+          points: extendedProfile.points ?? 0,
+          current_streak: extendedProfile.current_streak ?? 0,
+          total_checkins: extendedProfile.total_checkins ?? 0,
+          total_referrals: extendedProfile.total_referrals ?? 0,
+          longest_streak: extendedProfile.longest_streak ?? 0,
+          last_checkin_date: extendedProfile.last_checkin_date ?? null,
+          referral_code: extendedProfile.referral_code ?? null,
+          email_verified: extendedProfile.email_verified ?? false,
+          is_admin: extendedProfile.is_admin ?? false,
+          avatar_url: extendedProfile.avatar_url ?? null,
+          full_name: extendedProfile.full_name ?? null,
+          email: extendedProfile.email ?? "",
+          created_at: extendedProfile.created_at ?? new Date().toISOString(),
+          updated_at: extendedProfile.updated_at ?? new Date().toISOString(),
+        };
 
         console.log("Fetching next reward...");
         try {
           const { data: rewardData, error: rewardError } = await supabase
             .from("rewards")
             .select("name, points_required")
-            .gt("points_required", extendedProfile.points || 0)
+            .gt("points_required", resultData.points)
             .eq("is_active", true)
             .order("points_required", { ascending: true })
             .limit(1)
@@ -87,61 +136,20 @@ export function useRewards() {
           console.log("Next reward result:", { rewardData, rewardError });
 
           if (!rewardError && rewardData) {
-            const progressPercent = extendedProfile.points
-              ? Math.min(
-                  Math.round(
-                    (extendedProfile.points / rewardData.points_required) * 100
-                  ),
-                  100
-                )
-              : 0;
+            const progressPercent = Math.min(
+              Math.round(
+                (resultData.points || 0 / rewardData.points_required) * 100
+              ),
+              100
+            );
 
             resultData.next_reward = {
               ...rewardData,
               progress_percent: progressPercent,
             };
-          } else {
-            resultData.next_reward = null;
           }
         } catch (err) {
           console.log("Next reward error:", err);
-          resultData.next_reward = null;
-        }
-
-        // Fetch pending referrals count
-        let pendingReferrals = 0;
-        try {
-          const { count } = await supabase
-            .from("referrals")
-            .select("*", { count: "exact", head: true })
-            .eq("referrer_id", userId)
-            .eq("status", "pending");
-
-          pendingReferrals = count || 0;
-        } catch (err) {
-          console.log("Referrals table doesn't exist yet");
-        }
-
-        // Fetch recent transactions with explicit type
-        let recentTransactions: RecentTransaction[] = [];
-        try {
-          const { data: transactions } = await supabase
-            .from("points_transactions")
-            .select("description, points, type, created_at")
-            .eq("user_id", userId)
-            .order("created_at", { ascending: false })
-            .limit(5);
-
-          if (transactions) {
-            recentTransactions = transactions.map((tx) => ({
-              description: tx.description,
-              points: tx.points,
-              type: tx.type,
-              created_at: tx.created_at,
-            }));
-          }
-        } catch (err) {
-          console.log("Could not fetch transactions");
         }
 
         console.log("Fetching pending referrals...");
@@ -157,7 +165,6 @@ export function useRewards() {
           resultData.pending_referrals = count || 0;
         } catch (err) {
           console.log("Pending referrals error:", err);
-          resultData.pending_referrals = 0;
         }
 
         console.log("Fetching recent transactions...");
@@ -182,12 +189,9 @@ export function useRewards() {
               type: tx.type,
               created_at: tx.created_at,
             }));
-          } else {
-            resultData.recent_transactions = [];
           }
         } catch (err) {
           console.log("Recent transactions error:", err);
-          resultData.recent_transactions = [];
         }
 
         console.log("All data collected:", resultData);
@@ -197,12 +201,9 @@ export function useRewards() {
         setError("Failed to fetch rewards data");
         if (profile) {
           console.log("Using fallback profile data");
-          setData({
-            ...profile,
-            next_reward: null,
-            pending_referrals: 0,
-            recent_transactions: [],
-          });
+          setData(createDefaultUserRewardsData(profile));
+        } else {
+          setData(null);
         }
       } finally {
         console.log("Loading set to false");
@@ -312,11 +313,11 @@ export function useRewards() {
         points_awarded: pointsToAward,
         current_streak: newStreak,
       };
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Claim daily points error:", err);
       return {
         success: false,
-        message: err.message || "Failed to claim points",
+        message: formatError(err) || "Failed to claim points",
       };
     }
   };
@@ -381,7 +382,7 @@ export function useRewards() {
         });
 
         if (insertError) throw insertError;
-      } catch (err: any) {
+      } catch (err: unknown) {
         // If referrals table doesn't exist, just continue
         console.log("Referrals table doesn't exist, tracking locally only");
       }
@@ -399,11 +400,11 @@ export function useRewards() {
         message: "Referral link created successfully",
         referral_link: referralLink,
       };
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Create referral error:", err);
       return {
         success: false,
-        message: err.message || "Failed to create referral",
+        message: formatError(err) || "Failed to create referral",
       };
     }
   };
@@ -456,11 +457,11 @@ export function useRewards() {
         message: "25 points awarded!",
         points_awarded: 25,
       };
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Share stack error:", err);
       return {
         success: false,
-        message: err.message || "Failed to award points",
+        message: formatError(err) || "Failed to award points",
       };
     }
   };

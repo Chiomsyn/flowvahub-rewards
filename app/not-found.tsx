@@ -36,11 +36,11 @@ export default function NotFound() {
 
         {/* Main Message */}
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-          Oops! Page Not Found
+          {`  Oops! Page Not Found`}
         </h1>
         <p className="text-xl text-gray-600 mb-8 max-w-lg mx-auto">
-          Looks like you've wandered off the rewards path. The page you're
-          looking for might have been moved, deleted, or never existed.
+          {` Looks like you've wandered off the rewards path. The page you're
+          looking for might have been moved, deleted, or never existed.`}
         </p>
 
         {/* Action Buttons */}

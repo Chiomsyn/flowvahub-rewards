@@ -6,7 +6,11 @@ interface RewardsJourneyProps {
   userPoints: number;
   currentStreak: number;
   lastCheckinDate: string | null | undefined;
-  nextReward?: any;
+  nextReward?: {
+    name: string;
+    points_required: number;
+    progress_percent: number;
+  } | null;
   canClaimToday: boolean;
   claiming: boolean;
   onClaimDaily: () => void;

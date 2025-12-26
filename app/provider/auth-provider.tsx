@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 import type { Database } from "@/types/supabase";
+import { formatError } from "@/lib/utils";
 
 // Import types from your Database schema
 type Profile = Database["public"]["Tables"]["profiles"]["Row"];
@@ -248,11 +249,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
 
       return { success: true };
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Sign in error:", error);
       return {
         success: false,
-        error: error.message || "Failed to sign in",
+        error: formatError(error) || "Failed to sign in",
       };
     } finally {
       setLoading(false);
@@ -312,11 +313,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       );
 
       return { success: true };
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Sign up error:", error);
       return {
         success: false,
-        error: error.message || "Failed to create account",
+        error: formatError(error) || "Failed to create account",
       };
     } finally {
       setLoading(false);
@@ -328,7 +329,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       setLoading(true);
       await supabase.auth.signOut();
-    } catch (error: any) {
+    } catch (error) {
       console.error("Sign out error:", error);
       toast.error("Failed to sign out");
       throw error;
@@ -354,7 +355,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       });
 
       // Only include fields that actually exist in the database
-      const safeUpdates: any = {};
+      const safeUpdates: Partial<{
+        full_name: string | null;
+        avatar_url?: string | null;
+        points: number | null;
+        updated_at: string | null;
+      }> = {};
 
       // Map TypeScript fields to database columns
       if (updates.full_name !== undefined)
@@ -401,11 +407,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setProfile((prev) => (prev ? { ...prev, ...safeUpdates } : null));
 
       return { success: true };
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Update profile error:", error);
       return {
         success: false,
-        error: error.message || "Failed to update profile",
+        error: formatError(error) || "Failed to update profile",
       };
     }
   };
@@ -425,7 +431,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (session?.user?.id) {
         await fetchProfile(session.user.id);
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error("Refresh session error:", error);
       throw error;
     }

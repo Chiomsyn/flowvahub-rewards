@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Chrome } from "lucide-react";
 import { toast } from "react-hot-toast";
 import { useAuth } from "@/app/provider/auth-provider";
 import { signInWithGoogle } from "@/lib/supabase/browser-client";
+import { formatError } from "@/lib/utils";
 
 export default function LoginComponent() {
   const router = useRouter();
@@ -57,9 +57,9 @@ export default function LoginComponent() {
       if (error) {
         throw error;
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Google login error:", error);
-      toast.error(error.message || "Google login failed");
+      toast.error(formatError(error) || "Google login failed");
     }
   };
 
@@ -189,7 +189,7 @@ export default function LoginComponent() {
       {/* Sign Up Link */}
       <div className="mt-6 text-center">
         <p className="text-gray-600 text-sm">
-          Don't have an account?{" "}
+          {` Don't have an account? `}
           <Link
             href="/signup"
             className="font-semibold text-primary-500 hover:text-primary-700"

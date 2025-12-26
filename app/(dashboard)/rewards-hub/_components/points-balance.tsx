@@ -3,7 +3,11 @@ import { Star, Gift } from "lucide-react";
 
 interface PointsBalanceProps {
   userPoints: number;
-  nextReward?: any;
+  nextReward?: {
+    name: string;
+    points_required: number;
+    progress_percent: number;
+  } | null;
 }
 
 export default function PointsBalance({

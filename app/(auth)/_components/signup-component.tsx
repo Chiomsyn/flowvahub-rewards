@@ -8,6 +8,7 @@ import { toast } from "react-hot-toast";
 import { useAuth } from "@/app/provider/auth-provider";
 import { signInWithGoogle } from "@/lib/supabase/browser-client";
 import InputField from "@/app/components/ui/input-field";
+import { formatError } from "@/lib/utils";
 
 export default function SignUpComponent() {
   const router = useRouter();
@@ -86,9 +87,9 @@ export default function SignUpComponent() {
       if (error) {
         throw error;
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Google login error:", error);
-      toast.error(error.message || "Google login failed");
+      toast.error(formatError(error) || "Google login failed");
     }
   };
 

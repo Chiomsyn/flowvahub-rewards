@@ -171,8 +171,8 @@ export default function LandingPage() {
               Why Choose FlowvaHub Rewards?
             </h2>
             <p className="text-xl text-gray-600">
-              We've built a rewards platform that actually values your
-              engagement
+              {` We've built a rewards platform that actually values your
+              engagement`}
             </p>
           </div>
 
