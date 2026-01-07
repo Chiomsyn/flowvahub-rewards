@@ -1,4 +1,4 @@
-# Flowvahub Supabase Rewards Assessment Task
+# Flowvahub Supabase Rewards
 
 This project is a full-stack Supabase-powered rewards system covering authentication, user profiles, points, daily streaks, and rewards claiming.
 
